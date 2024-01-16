@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo_list</title>
+    <script
+      src="https://kit.fontawesome.com/34de377d53.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      h1 {
+        position: absolute;
+        top: 10px;
+        color: white;
+      }
+      .container {
+        background-color: white;
+        max-width: 400px;
+        max-height: 250px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px white;
+        border-radius: 20px;
+        overflow: scroll;
+      }
+      .input-text {
+        height: 30px;
+        min-width: 200px;
+        border: 1px solid green;
+        border-radius: 10px;
+        outline: none;
+        padding: 5px 10px;
+      }
+      .add-btn {
+        text-transform: uppercase;
+        padding: 13px 20px;
+        background-color: green;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .add-btn:active {
+        background-color: black;
+        color: green;
+      }
+      .todo-list {
+        position: relative;
+        list-style: decimal;
+        text-transform: capitalize;
+      }
+      .todo-list li {
+        position: relative;
+        left: -20px;
+        padding: 10px;
+        max-width: 100%;
+      }
+      .todo-list li span {
+        position: absolute;
+        right: 0;
+      }
+      span .fa-trash-can {
+        color: red;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>TODO LIST</h1>
+    <div class="container">
+      <input type="text" class="input-text" />
+      <button class="add-btn">add</button>
+      <ul class="todo-list"></ul>
+    </div>
+
+    <script>
+      let todoInput = document.querySelector(".input-text");
+      let add_btn = document.querySelector(".add-btn");
+      let todoTask = document.querySelector(".todo-list");
+
+      // to function add btn
+
+      add_btn.addEventListener("click", addlist);
+
+      // function to add
+
+      function addlist() {
+        const todolist = todoInput.value.trim();
+
+        if (todolist !== "") {
+          const li = document.createElement("li");
+          li.innerHTML = `${todolist}<span class="delete"><i class="fa-solid fa-trash-can"></i><span> `;
+          todoTask.appendChild(li);
+          todoInput.value = "";
+
+          // add delete btn
+
+          const delete_btn = li.querySelector(".delete");
+          delete_btn.addEventListener("click", () => {
+            li.remove();
+          });
+        }
+      }
+
+      // works on pressing enter key
+
+      todoInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          addlist();
+        }
+      });
+    </script>
+  </body>
+</html>
